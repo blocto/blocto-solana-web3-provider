@@ -113,7 +113,9 @@ Req:
   "id": <int>,
   "params": {
     "message": <hex-string>,
-    "signatures": [<hex-string>] // In most cases, it should be empty array.
+    "publicKeySignaturePairs": { // In most cases, it should be empty.
+      <base-58>: <hex-string> // public key: signature
+    }
   }
 }
 ```

@@ -182,14 +182,16 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
   }
 
   signAndSendTransaction(transaction) {
-    const signatures = transaction.signatures
-      .map((sig) => sig.signature)
-      .filter((signature) => !!signature)
-      .map(buffer => buffer.toString('hex'))
+    var publicKeySignaturePairs = {}
+    transaction.signatures.forEach(pair => {
+      if (pair.signature) {
+        publicKeySignaturePairs[pair.publicKey.toBase58()] = pair.signature.toString('hex')
+      }
+    })
     return this.request({
       method: 'signAndSendTransaction',
       params: {
-        signatures: signatures,
+        publicKeySignaturePairs: publicKeySignaturePairs,
         message: transaction.serializeMessage().toString('hex')
       }});
   }
