@@ -25,6 +25,21 @@ end
 
 ## App Implementataion
 
+We have to inject the following code just like Ethereum:
+```
+(function() {
+  var config = {
+    address: "\(address)",
+    network: "\(network)"
+  };
+  const bloctoProvider = new window.BloctoSolana(config);
+  window.\(windowProperty) = bloctoProvider;
+  window.bloctoProvider = bloctoProvider;
+})();
+```
+
+The network is "mainnet-beta" or "testnet".
+
 ### Request Format
 ```
 {
