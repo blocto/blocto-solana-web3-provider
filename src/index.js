@@ -1,8 +1,8 @@
 "use strict";
 
 import EventEmitter from 'eventemitter3';
-import { PublicKey, Transaction, Message } from '@solana/web3.js';
-import bs58 from 'bs58';
+import { PublicKey, Message } from '@solana/web3.js';
+import { populateTransaction } from './utils';
 
 class BloctoSolanaWeb3Provider extends EventEmitter {
 
@@ -79,10 +79,8 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
             // replace to web3 transaction object
             const buffer = Buffer.from(event.detail.result, 'hex');
             const message = Message.from(buffer)
-            const DEFAULT_SIGNATURE = bs58.encode(Buffer.alloc(64).fill(0));
-            const signatures = message.accountKeys.map(() => DEFAULT_SIGNATURE);
-            const transaction = Transaction.populate(message, signatures)
-            event.detail.result = transaction;  
+            const transaction = populateTransaction(message, []);
+            event.detail.result = transaction;
           }
 
           if (event.detail.result || event.detail.error) {
