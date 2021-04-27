@@ -130,7 +130,8 @@ Req:
     "message": <hex-string>,
     "publicKeySignaturePairs": { // In most cases, it should be empty.
       <base-58>: <hex-string> // public key: signature
-    }
+    },
+    "isInvokeWrapped": <bool> // check if calling createTransaction or not.
   }
 }
 ```

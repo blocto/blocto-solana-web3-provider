@@ -4,6 +4,11 @@ import EventEmitter from 'eventemitter3';
 import { PublicKey, Message } from '@solana/web3.js';
 import { populateTransaction } from './utils';
 
+const walletProgramIds = {
+  'mainnet-beta': 'JBn9VwAiqpizWieotzn6FjEXrBu4fDe2XFjiFqZwp8Am',
+  'testnet': 'BHTYXRppkVxNmhAjyN8Gkmrm5VMMXY8omv4Z9bcWLSG2'
+}
+
 class BloctoSolanaWeb3Provider extends EventEmitter {
 
   constructor(config) {
@@ -186,11 +191,22 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
         publicKeySignaturePairs[pair.publicKey.toBase58()] = pair.signature.toString('hex')
       }
     })
+    var isInvokeWrapped = false
+    if (walletProgramIds[this._network]) {
+      isInvokeWrapped = !transaction.instructions.every(instruction => {
+        if (instruction.programId) {
+          return instruction.programId != walletProgramIds[this._network]
+        } else {
+          return true
+        }
+      })
+    }
     return this.request({
       method: 'signAndSendTransaction',
       params: {
         publicKeySignaturePairs: publicKeySignaturePairs,
-        message: transaction.serializeMessage().toString('hex')
+        message: transaction.serializeMessage().toString('hex'),
+        isInvokeWrapped
       }});
   }
 
