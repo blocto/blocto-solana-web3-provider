@@ -103,7 +103,7 @@ Resp:
 }
 ```
 
-#### convertToProgramWalletTransation
+#### convertToProgramWalletTransaction
 Req:
 ```
 {

@@ -82,7 +82,7 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
           this._handleDisconnect()
           break
         default: {
-          if (message.method == 'convertToProgramWalletTransation') {
+          if (message.method == 'convertToProgramWalletTransaction') {
             // replace to web3 transaction object
             const buffer = Buffer.from(event.detail.result, 'hex');
             const message = Message.from(buffer)
@@ -179,9 +179,9 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
       }});
   }
 
-  convertToProgramWalletTransation(transaction) {
+  convertToProgramWalletTransaction(transaction) {
     return this.request({
-      method: 'convertToProgramWalletTransation',
+      method: 'convertToProgramWalletTransaction',
       params: {
         message: transaction.serializeMessage().toString('hex')
       }});
