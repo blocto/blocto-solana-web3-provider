@@ -71,7 +71,9 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
               }
               this._setPublicKey(newPublicKey);
               this._autoApprove = !!event.detail.params.autoApprove;
-              this.emit('connect', this._publicKey);
+            }
+            if (newPublicKey) {
+              this.emit('connect', newPublicKey);
             }
           }
           break
@@ -98,6 +100,7 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
               }
             }
           }
+          break
         }}
         window.postMessage(event.detail);
       }
