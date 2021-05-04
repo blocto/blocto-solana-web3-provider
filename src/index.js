@@ -6,7 +6,7 @@ import { populateTransaction } from './utils';
 
 const walletProgramIds = {
   'mainnet-beta': 'JBn9VwAiqpizWieotzn6FjEXrBu4fDe2XFjiFqZwp8Am',
-  'testnet': 'BHTYXRppkVxNmhAjyN8Gkmrm5VMMXY8omv4Z9bcWLSG2'
+  'testnet': 'DLDtadmbiZiZZFwPJpMCPWPanTLqm7FDAKHHuX6kN1zc'
 }
 
 class BloctoSolanaWeb3Provider extends EventEmitter {
