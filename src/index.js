@@ -9,6 +9,11 @@ const walletProgramIds = {
   'testnet': 'DLDtadmbiZiZZFwPJpMCPWPanTLqm7FDAKHHuX6kN1zc'
 }
 
+const metaProgramIds = {
+  'mainnet-beta': '9Def8AN6jC8hKQTZC8tAVAKPFhPmaekk69CqjA9LJRxf',
+  'testnet': '9Def8AN6jC8hKQTZC8tAVAKPFhPmaekk69CqjA9LJRxf'
+}
+
 class BloctoSolanaWeb3Provider extends EventEmitter {
 
   constructor(config) {
@@ -195,10 +200,11 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
       }
     })
     var isInvokeWrapped = false
-    if (walletProgramIds[this._network]) {
+    if (walletProgramIds[this._network] || metaProgramIds[this._network]) {
       isInvokeWrapped = !transaction.instructions.every(instruction => {
         if (instruction.programId) {
-          return instruction.programId != walletProgramIds[this._network]
+          return (instruction.programId != walletProgramIds[this._network]
+            && instruction.programId != metaProgramIds[this._network])
         } else {
           return true
         }
