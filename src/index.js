@@ -20,6 +20,7 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
     super();
 
     this.isBlocto = true;
+    this.isWalletEnabled = config.isWalletEnabled;
     this._publicKey = null;
     this._autoApprove = false;
     this._network = config.network;
@@ -222,6 +223,7 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
   _setPublicKey(publicKey) {
     if (publicKey) {
       this._publicKey = publicKey;
+      this.isWalletEnabled = true;
 
       for (var i = 0; i < window.frames.length; i++) {
         const frame = window.frames[i];
