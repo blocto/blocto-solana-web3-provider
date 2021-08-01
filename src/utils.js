@@ -1,5 +1,5 @@
-import { Transaction, TransactionInstruction } from '@solana/web3.js';
-import bs58 from 'bs58';
+import { Transaction, TransactionInstruction } from "@solana/web3.js";
+import bs58 from "bs58";
 
 const DEFAULT_SIGNATURE = Buffer.alloc(64).fill(0);
 
@@ -40,4 +40,4 @@ export const populateTransaction = (message, signatures) => {
   });
 
   return transaction;
-}
+};
