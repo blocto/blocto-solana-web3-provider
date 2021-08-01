@@ -202,7 +202,7 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
     })
     var isInvokeWrapped = false
     if (walletProgramIds[this._network] || metaProgramIds[this._network]) {
-      isInvokeWrapped = !transaction.instructions.every(instruction => {
+      isInvokeWrapped = transaction.instructions.some(instruction => {
         if (instruction.programId) {
           return (instruction.programId != walletProgramIds[this._network]
             && instruction.programId != metaProgramIds[this._network])
