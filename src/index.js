@@ -6,12 +6,7 @@ import { populateTransaction } from './utils';
 
 const walletProgramIds = {
   'mainnet-beta': 'JBn9VwAiqpizWieotzn6FjEXrBu4fDe2XFjiFqZwp8Am',
-  'testnet': 'DLDtadmbiZiZZFwPJpMCPWPanTLqm7FDAKHHuX6kN1zc'
-}
-
-const metaProgramIds = {
-  'mainnet-beta': '9Def8AN6jC8hKQTZC8tAVAKPFhPmaekk69CqjA9LJRxf',
-  'testnet': '9Def8AN6jC8hKQTZC8tAVAKPFhPmaekk69CqjA9LJRxf'
+  'devnet': 'Ckv4czD7qPmQvy2duKEa45WRp3ybD2XuaJzQAWrhAour'
 }
 
 class BloctoSolanaWeb3Provider extends EventEmitter {
@@ -201,11 +196,10 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
       }
     })
     var isInvokeWrapped = false
-    if (walletProgramIds[this._network] || metaProgramIds[this._network]) {
+    if (walletProgramIds[this._network]) {
       isInvokeWrapped = transaction.instructions.some(instruction => {
         if (instruction.programId) {
-          return (instruction.programId != walletProgramIds[this._network]
-            && instruction.programId != metaProgramIds[this._network])
+          return (instruction.programId == walletProgramIds[this._network])
         } else {
           return true
         }
