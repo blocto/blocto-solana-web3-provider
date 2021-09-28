@@ -53,6 +53,9 @@ The network is "mainnet-beta" or "testnet".
 
 Please call `sendResponse` func with json string.
 
+1. If no `id`, `sendResponse({ "id": 0, "error": "invalidRequest" })`
+2. If no `method`, `sendResponse({ "id": id, "error": "invalidRequest" })`
+
 #### Successful Response
 ```
 {
@@ -72,14 +75,14 @@ Please call `sendResponse` func with json string.
 ### Methods
 
 #### connect 
-Req:
+- Request
 ```
 {
   "id": <int>,
   "method": "connect"
 }
 ```
-Resp:
+- Response
 ```
 {
   "id": <int>,
@@ -88,23 +91,29 @@ Resp:
   }
 }
 ```
+- Error
+1. If no accounts (not enabled), `sendError( "id": id, "error": "noAccounts")` // app presents wallet enable panel
+2. If user click close/cancel button, `sendError( "id": id, "error": "cancelled")`
+3. other unexpected behavior `sendError({ "id": id, "error": "internal"})`
 
 #### disconnect
-Req:
+- Request
 ```
 {
   "id": <int>
 }
 ```
-Resp:
+- Response
 ```
 {
   "id": <int>
 }
 ```
+- Error
+no error. please remember send response with id.
 
 #### convertToProgramWalletTransaction
-Req:
+- Request
 ```
 {
   "id": <int>,
@@ -113,16 +122,20 @@ Req:
   }
 }
 ```
-Resp:
+- Response
 ```
 {
   "id": <int>,
   "result": <hex-string> // raw-transaction-message
 }
 ```
+- Error
+1. If no `message`, `sendError({ "id": id, "error": "invalidRequest" })`
+2. If no network connection, `sendError({ "id": id, "error": "noNetworkConnection" })`
+3. other unexpected behavior `sendError({ "id": id, "error": "internal" })`
 
 #### signAndSendTransaction
-Req:
+- Request
 ```
 {
   "id": <int>,
@@ -135,10 +148,15 @@ Req:
   }
 }
 ```
-Resp:
+- Response
 ```
 {
   "id": <int>,
   "result": <hex-string> // tx hash
 }
 ```
+- Error
+1. If no `message` or `isInvokeWrapped`, `sendError({ "id": id, "error": "invalidRequest" })`
+2. If no network connection, `sendError({ "id": id, "error": "noNetworkConnection" })`
+3. If user click close/cancel button, `sendError({ "id": id, "error": "cancelled" })`
+4. other unexpected behavior `sendError({ "id": id, "error": "internal" })`
