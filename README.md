@@ -38,7 +38,7 @@ We have to inject the following code just like Ethereum:
 })();
 ```
 
-The network is "mainnet-beta" or "testnet".
+The network is "mainnet-beta" or "devnet".
 
 ### Request Format
 ```
