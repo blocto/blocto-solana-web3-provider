@@ -92,9 +92,9 @@ Please call `sendResponse` func with json string.
 }
 ```
 - Error
-1. If no accounts (not enabled), `sendError( "id": id, "error": "noAccounts")` // app presents wallet enable panel
-2. If user click close/cancel button, `sendError( "id": id, "error": "cancelled")`
-3. other unexpected behavior `sendError({ "id": id, "error": "internal"})`
+1. If no accounts (not enabled), `sendResponse( "id": id, "error": "noAccounts")` // app presents wallet enable panel
+2. If user click close/cancel button, `sendResponse( "id": id, "error": "cancelled")`
+3. other unexpected behavior `sendResponse({ "id": id, "error": "internal"})`
 
 #### disconnect
 - Request
@@ -130,9 +130,9 @@ no error. please remember send response with id.
 }
 ```
 - Error
-1. If no `message`, `sendError({ "id": id, "error": "invalidRequest" })`
-2. If no network connection, `sendError({ "id": id, "error": "noNetworkConnection" })`
-3. other unexpected behavior `sendError({ "id": id, "error": "internal" })`
+1. If no `message`, `sendResponse({ "id": id, "error": "invalidRequest" })`
+2. If no network connection, `sendResponse({ "id": id, "error": "noNetworkConnection" })`
+3. other unexpected behavior `sendResponse({ "id": id, "error": "internal" })`
 
 #### signAndSendTransaction
 - Request
@@ -156,7 +156,7 @@ no error. please remember send response with id.
 }
 ```
 - Error
-1. If no `message` or `isInvokeWrapped`, `sendError({ "id": id, "error": "invalidRequest" })`
-2. If no network connection, `sendError({ "id": id, "error": "noNetworkConnection" })`
-3. If user click close/cancel button, `sendError({ "id": id, "error": "cancelled" })`
-4. other unexpected behavior `sendError({ "id": id, "error": "internal" })`
+1. If no `message` or `isInvokeWrapped`, `sendResponse({ "id": id, "error": "invalidRequest" })`
+2. If no network connection, `sendResponse({ "id": id, "error": "noNetworkConnection" })`
+3. If user click close/cancel button, `sendResponse({ "id": id, "error": "cancelled" })`
+4. other unexpected behavior `sendResponse({ "id": id, "error": "internal" })`
