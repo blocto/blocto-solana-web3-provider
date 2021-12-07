@@ -210,6 +210,18 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
       }});
   }
 
+  registerPushNotification(appId) {
+    if (typeof appId !== "string") {
+      reject(new Error("noAppID"));
+    }
+
+    return this.request({
+      method: 'registerPushNotification',
+      params: {
+        appId: appId,
+      }});
+  }
+
   _setPublicKey(publicKey) {
     if (publicKey) {
       this._publicKey = publicKey;
