@@ -160,3 +160,28 @@ no error. please remember send response with id.
 2. If no network connection, `sendResponse({ "id": id, "error": "noNetworkConnection" })`
 3. If user click close/cancel button, `sendResponse({ "id": id, "error": "cancelled" })`
 4. other unexpected behavior `sendResponse({ "id": id, "error": "internal" })`
+
+#### registerPushNotification
+- Request
+```
+{
+  "id": <int>,
+  "params": {
+    "appId": <uuid>,
+  }
+}
+```
+- Response
+```
+{
+  "id": <int>,
+  "result": <hex-string> // encrypted jwt token
+}
+```
+- Error
+1. If no `appId` param, `sendResponse({ "id": id, "error": "invalidRequest" })`
+2. If app id not exists (by checking BE api error), `sendResponse({ "id": id, "error": "appIdNotExist" })`
+3. If no network connection, `sendResponse({ "id": id, "error": "noNetworkConnection" })`
+4. If user block this website, `sendError(id, "blocked")`
+5. If user click close/cancel button or tap background to cancel, `sendResponse({ "id": id, "error": "cancelled" })`
+6. other unexpected behavior `sendResponse({ "id": id, "error": "internal" })`

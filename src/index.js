@@ -48,8 +48,6 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
     window.dispatchEvent(new CustomEvent("blocto_provider_message", { detail: json }));
   }
 
-  // for supporting sol-wallet-adapter
-  // https://github.com/project-serum/sol-wallet-adapter
   postMessage(message) {
     if (message.method === 'connect') {
       if (!this._handlerAdded) {
@@ -115,8 +113,6 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
     }
   }
 
-  // for supporting Phantom-like wallet
-  // https://docs.phantom.app/integrating/establishing-a-connection
   request(data) {
     const method = data.method;
     const params = data.params;
@@ -189,13 +185,13 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
   }
 
   signAndSendTransaction(transaction) {
-    var publicKeySignaturePairs = {}
+    let publicKeySignaturePairs = {}
     transaction.signatures.forEach(pair => {
       if (pair.signature) {
         publicKeySignaturePairs[pair.publicKey.toBase58()] = pair.signature.toString('hex')
       }
     })
-    var isInvokeWrapped = false
+    let isInvokeWrapped = false
     if (walletProgramIds[this._network]) {
       isInvokeWrapped = transaction.instructions.some(instruction => {
         if (instruction.programId) {
@@ -214,12 +210,24 @@ class BloctoSolanaWeb3Provider extends EventEmitter {
       }});
   }
 
+  registerPushNotification(appId) {
+    if (typeof appId !== "string") {
+      reject(new Error("noAppID"));
+    }
+
+    return this.request({
+      method: 'registerPushNotification',
+      params: {
+        appId: appId,
+      }});
+  }
+
   _setPublicKey(publicKey) {
     if (publicKey) {
       this._publicKey = publicKey;
       this.isWalletEnabled = true;
 
-      for (var i = 0; i < window.frames.length; i++) {
+      for (let i = 0; i < window.frames.length; i++) {
         const frame = window.frames[i];
         if (frame.solana.isBlocto) {
           frame.solana._publicKey = this._publicKey;
